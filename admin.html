@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farms | Weight Record</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+
+    <!-- Tailwind css -->
+    <script src="assets/css/tailwind.js"></script>
+
+    <!-- Jquery -->
+    <script src="assets/jquery/compressed_jquery.js"></script>
+
+    <style>*{transition: all 0.5s;}</style>
+</head>
+<body class="grid grid-cols-12 p-2 overflow-hidden min-h-[100vh]">
+    <nav class="border hidden sm:flex flex-col py-2 bg-gradient-to-tr from-indigo-600 to-blue-600 text-white col-span-2 items-center sm:col-span-4 lg:p-2 lg:col-span-3 overflow-y-auto">
+        <!-- logo -->
+        <div class="w-24 md:w-32 lg:w-42">
+            <img src="assets/logo.png" alt="">
+        </div>
+        <!-- user full name -->
+        <span class="block text-center w-full font-semibold">
+            F<span class="hidden sm:inline">irstname</span> L<span class="hidden sm:inline">astname</span>
+        </span>
+        <!-- username -->
+        <span class="block text-center text-sm">[Username]</span>
+
+        <!-- department -->
+        <span class="block text-center text-sm">Department Name</span>
+        <!-- nav links -->
+        <div class="links mt-6 p-2 flex flex-col w-full gap-1">
+            <div class="cursor-pointer border text-center px-2 py-1 hover:bg-blue-800">
+                <span>Dashboard</span>
+            </div>
+            <div class="link cursor-pointer border text-center px-2 py-1 hover:bg-blue-800">
+                <span>Performance Records</span>
+            </div>
+            <div class="link cursor-pointer border text-center px-2 py-1 hover:bg-blue-800">
+                <span>Animal Records</span>
+            </div>
+            <div class="link cursor-pointer border text-center px-2 py-1 bg-blue-800 hover:bg-blue-900">
+                <span>Weight Records</span>
+            </div>
+            <div class="link cursor-pointer border text-center px-2 py-1 hover:bg-blue-800">
+                <span>Users</span>
+            </div>
+        </div>
+    </nav>
+    <main class="overflow-auto h-[98vh] border bg-gradient-to-b from-blue-300 to-blue-400 text-slate-900 p-2 sm:col-span-8 col-span-12 lg:col-span-9">
+        <div class="flex justify-between items-center mb-6">
+            <div class="ham sm:hidden">
+                <span class="bg-slate-900 h-1 w-8 block m-1"></span>
+                <span class="bg-slate-900 h-1 w-8 block m-1"></span>
+                <span class="bg-slate-900 h-1 w-8 block m-1"></span>
+            </div>
+            <h1 class="font-bold text-right text-xl">Farm Cattle Weight Records</h1>
+        </div>
+        
+        <!-- View tabs -->
+        <div id="tabs" class="flex p-2 gap-x-1 bg-white justify-center">
+            <div class="tab p-2 border cursor-pointer bg-sky-600 text-white border-sky-600 hover:bg-sky-700" data-block-id="view"
+                onclick="$('#add').find('button[name=resetForm]').click()"
+            >
+                <span>View Calves</span>
+            </div>
+            <div class="tab p-2 border cursor-pointer hover:bg-sky-600 hover:text-white" data-block-id="add"
+                onclick="$('#add').find('select#animal_type').change()"
+            >
+                <span>Add Record</span>
+            </div>
+        </div>
+
+        <div id="view" class="blocks active-block bg-white p-2 my-1 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2">
+            <!-- Search bar -->
+            <div class="md:col-span-2 lg:col-span-3 2xl:col-span-4">
+                <p id="wrong_key" class="hidden p-1 text-red-700"></p>
+                <input type="search" name="search" id="search" class="border w-full max-w-screen-sm p-2" placeholder="Search animal by id or breed or sex or sire id">
+                <div class="instruction hidden border py-1 px-2 text-sm">
+                    <p class="font-semibold">Search Instructions <br>
+                        <span class="font-normal">Use the format below for searching</span>
+                    </p>
+                    <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 border p-2 gap-x-2">
+                        <li class="text-red-600">id:animal id</li>
+                        <li class="text-blue-600">breed:animal breed</li>
+                        <li class="text-orange-600">sex:animal sex</li>
+                        <li class="text-violet-600">weight:animal weight</li>
+                        <li class="text-green-600">date:record date</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Animal details -->
+            <div class="p-2 border animal cursor-pointer hover:shadow" data-row-id="1" data-animal-type="goat">
+                <div>
+                    <span data-id="animal id" class="font-semibold">Animal ID</span>
+                    <span data-breed="animal breed" class="text-sm">- Animal Breed</span>
+                </div>
+                <div class="grid grid-cols-3 mt-4 md:grid-cols-2 gap-1 text-sm">
+                    <span data-remark="" class="self-end col-span-2 md:col-span-1">Remarks</span>
+                    <div class="grid">
+                        <span data-sex="female">Female</span>
+                        <span data-weight="12">Animal Weight</span>
+                        <span data-date="2022-01-12">Weigh date</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 border animal cursor-pointer hover:shadow" data-row-id="2" data-animal-type="cow">
+                <div>
+                    <span data-id="animal id" class="font-semibold">Animal ID</span>
+                    <span data-breed="animal breed" class="text-sm">- Animal Breed</span>
+                </div>
+                <div class="grid grid-cols-3 mt-4 md:grid-cols-2 gap-1 text-sm">
+                    <span data-remark="" class="self-end col-span-2 md:col-span-1">Remarks</span>
+                    <div class="grid">
+                        <span data-sex="male">Male</span>
+                        <span data-weight="12">Animal Weight</span>
+                        <span data-date="2022-01-12">Weigh date</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 border animal cursor-pointer hover:shadow" data-row-id="3" data-animal-type="sheep">
+                <div>
+                    <span data-id="animal id" class="font-semibold">Animal ID</span>
+                    <span data-breed="animal breed" class="text-sm">- Animal Breed</span>
+                </div>
+                <div class="grid grid-cols-3 mt-4 md:grid-cols-2 gap-1 text-sm">
+                    <span data-remark="" class="self-end col-span-2 md:col-span-1">Remarks</span>
+                    <div class="grid">
+                        <span data-sex="male">Male</span>
+                        <span data-weight="12">Animal Weight</span>
+                        <span data-date="2022-01-12">Weigh date</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 border animal cursor-pointer hover:shadow" data-row-id="3" data-animal-type="pig">
+                <div>
+                    <span data-id="animal id" class="font-semibold">Animal ID</span>
+                    <span data-breed="animal breed" class="text-sm">- Animal Breed</span>
+                </div>
+                <div class="grid grid-cols-3 mt-4 md:grid-cols-2 gap-1 text-sm">
+                    <span data-remark="" class="self-end col-span-2 md:col-span-1">Remarks</span>
+                    <div class="grid">
+                        <span data-sex="male">Male</span>
+                        <span data-weight="12">Animal Weight</span>
+                        <span data-date="2022-01-12">Weigh date</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update a record -->
+        <div id="update" class="hidden blocks fixed flex items-center content-center inset-0 blocks p-2 my-1">
+            <div class="back absolute inset-0 bg-black/70 -z-10" onclick="[$('#update').addClass('hidden')]"></div>
+            <form action="" class="p-2 lg:p-4 rounded shadow-black shadow m-2 z-10 max-w-screen-sm lg:max-w-screen-md w-full bg-white sm:m-auto 
+                overflow-auto max-h-[90vh]" name="update-form">
+                <div class="flex justify-between items-center">
+                    <h1 class="pt-2 pb-4 md:text-xl">Update records for <span id="form-animal-id" class="font-bold font-mono">ID001</span></h1>
+                    <span class="px-2 rounded-md hover:rounded-none py-1 cursor-pointer bg-red-600 hover:bg-red-700 text-white text-sm" id="delete-animal">Delete</span>
+                </div>
+                <div class="grid gap-2 bg-red-50 p-2">
+                    <!-- message box -->
+                    <div class="hidden message-box sticky top-2 p-2 text-center border lg:col-span-2">
+                        <span>Some message to show</span>
+                    </div>
+
+                    <!-- hidden input fields -->
+                    <input type="hidden" name="animal_id" id="animal_id">
+                    <input type="hidden" name="row_id" id="row_id">
+                    
+                    <!-- displayed input fields -->
+                    <div class="grid">
+                        <label for="animal_type">Animal Type</label>
+                        <select type="text" name="animal_type" id="animal_type"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                            <option value="cow">Cow</option>
+                            <option value="sheep">Sheep</option>
+                            <option value="goat">Goat</option>
+                            <option value="pig">Pig</option>
+                        </select>
+                    </div>
+                    <div class="grid">
+                        <label for="record_date">Record Date</label>
+                        <input type="date" name="record_date" id="record_date" placeholder="Calving Date"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none" readonly
+                        >
+                    </div>
+                    <div class="grid">
+                        <label for="animal_breed">Breed</label>
+                        <input type="text" name="animal_breed" id="animal_breed" placeholder="Breed"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                    </div>
+                    <div class="grid">
+                        <label for="animal_sex">Sex</label>
+                        <select name="animal_sex" id="animal_sex"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="grid">
+                        <label for="animal_weight">Animal Weight (KG)</label>
+                        <input type="text" name="animal_weight" id="animal_weight" placeholder="Animal Weight"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                    </div>
+                    <div class="grid md:col-span-2">
+                        <label for="remarks">Remarks</label>
+                        <textarea name="remarks" id="remarks" placeholder="Remarks"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none min-h-[10vh]"
+                        ></textarea>
+                    </div>
+                    <div class="lg:col-span-2 flex flex-wrap justify-center gap-x-12 gap-y-2">
+                        <button class="p-2 border bg-gradient-to-tr from-green-600 to-emerald-600 text-white w-full 
+                            lg:max-w-[16rem] hover:shadow hover:to-green-600" type="submit" name="submit" value="update_animal_weigh">Update Record</button>
+                        <button type="button" class="p-2 border bg-gradient-to-tr from-rose-600 to-red-600 text-white w-full lg:max-w-[16rem] hover:shadow hover:from-red-600 hover:to-red-600"
+                            onclick="[$('#update').addClass('hidden')]"
+                            name="closeForm"
+                        >Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add a record -->
+        <div id="add" class="hidden blocks bg-white p-2 my-1">
+            <form action="" class="p-2 lg:p-4 m-2 z-10 w-full bg-white sm:m-auto" 
+                name="add-form">
+                <h1 class="pt-2 pb-4 text-xl capitalize">Add a new performance Record</h1>
+                <div class="grid gap-2 bg-red-50 p-2">
+                    <!-- message box -->
+                    <div class="hidden message-box sticky top-2 p-2 text-center border lg:col-span-2">
+                        <span>Some message to show</span>
+                    </div>
+                    
+                    <!-- displayed input fields -->
+                    <div class="grid">
+                        <label for="animal_type">Animal Type</label>
+                        <select type="text" name="animal_type" id="animal_type"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                            <option value="cow">Cow</option>
+                            <option value="sheep">Sheep</option>
+                            <option value="goat">Goat</option>
+                            <option value="pig">Pig</option>
+                        </select>
+                    </div>
+                    <div class="grid">
+                        <label for="animal_id">Animal ID</label>
+                        <input type="text" name="animal_id" id="animal_id" placeholder="Animal ID"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                    </div>
+                    <div class="grid">
+                        <label for="animal_breed">Breed</label>
+                        <input type="text" name="animal_breed" id="animal_breed" placeholder="Breed"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                    </div>
+                    <div class="grid">
+                        <label for="animal_sex">Sex</label>
+                        <select name="animal_sex" id="animal_sex"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="grid">
+                        <label for="animal_weight">Animal Weight (KG)</label>
+                        <input type="text" name="animal_weight" id="animal_weight" placeholder="Animal Weight"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none"
+                        >
+                    </div>
+                    <div class="grid md:col-span-2">
+                        <label for="remarks">Remarks</label>
+                        <textarea name="remarks" id="remarks" placeholder="Remarks"
+                            class="border p-2 rounded focus:outline-none focus:rounded-none min-h-[10vh]"
+                        ></textarea>
+                    </div>
+                    <div class="lg:col-span-2 flex flex-wrap justify-center gap-x-12 gap-y-2">
+                        <button class="p-2 border bg-gradient-to-tr from-green-600 to-emerald-600 text-white w-full lg:max-w-[16rem] 
+                            hover:shadow hover:to-green-600" type="submit" name="submit" value="add_animal_weigh">Add Record</button>
+                        <button type="button" name="resetForm" class="p-2 border bg-gradient-to-tr from-rose-600 to-red-600 text-white 
+                            w-full lg:max-w-[16rem] hover:shadow hover:from-red-600 hover:to-red-600">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Delete box -->
+        <div id="delete_box" class="hidden blocks fixed inset-0 bg-black/70 flex items-center justify-center">
+            <div class="max-w-screen-sm lg:max-w-screen-md px-2 py-12 m-2 bg-white rounded w-full">
+                <p class="text-center text-2xl mb-6">Are you sure you want to delete</p>
+                <form class="flex items-center justify-center gap-2" name="delete-form">
+                    <input type="hidden" name="table" value="weight_table">
+                    <input type="hidden" name="row_id" value="">
+                    <button class="p-2 w-full max-w-[16rem] hover:shadow border border-green-600 hover:bg-green-600/20"
+                        type="submit" name="submit" value="delete_item"
+                    >Yes</button>
+                    <button class="p-2 w-full max-w-[16rem] hover:shadow border border-red-600 hover:bg-red-600/20"
+                        type="button" onclick="[$(this).parents('#delete_box').addClass('hidden'), $(this).parents('form')[0].reset()]"
+                    >No</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/scripts/variables.js"></script>
+    <script src="assets/scripts/allRecords.js"></script>
+    <script src="assets/scripts/weight.js"></script>
+    <script src="assets/scripts/ham.js"></script>
+</body>
+</html>

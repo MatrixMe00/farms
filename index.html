@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farms | Login</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+
+    <!-- Tailwind css -->
+    <script src="assets/css/tailwind.js"></script>
+
+    <!-- Jquery -->
+    <script src="assets/jquery/compressed_jquery.js"></script>
+
+    <style>*{transition: all 0.5s;}</style>
+</head>
+<body class="border-0 m-0 bg-gradient-to-tr from-indigo-600 to-blue-600">
+    <main class="grid min-h-[100vh] p-2">
+        <form action="" class="border p-2 pb-12 m-auto bg-red-200 w-full max-w-screen-sm shadow-neutral-700 shadow-md rounded-md bg-white p-4">
+            <h1 class="font-semibold text-sm text-center">University of Ghana | Liprec Production</h1>
+            <span class="flex items-center justify-center my-2">
+                <img src="assets/logo.png" class="w-32" alt="University of Ghana Logo">
+            </span>
+            <h3 class="text-xl text-center">Login</h3>
+            <div class="grid gap-y-4 gap-x-3 mt-4 px-4 md:px-12">
+                <div id="message-box" class="hidden sticky top-2 p-2 text-center border">
+                    <span>Some message to show</span>
+                </div>
+                <div class="">
+                    <label for="username" class="">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Username"
+                        class="border w-full rounded p-2 focus:border-neutral-300 outline-0 appearance-none"
+                    >
+                </div>
+                <div class="">
+                    <label for="username" class="">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password"
+                        class="border w-full rounded p-2 focus:border-neutral-300 outline-0 appearance-none"
+                    >
+                </div>
+                <button class="border py-3 px-4 w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:to-emerald-600 font-semibold text-white"
+                    type="submit" name="submit" value="log_in"    
+                >
+                    Login
+                </button>
+                <a href="signup.html" class="block">
+                    <button class="border py-3 px-4 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:to-cyan-600 font-semibold text-white"
+                        type="button">
+                        Signup
+                    </button>
+                </a>
+                <p class="text-center text-sm hover:underline cursor-pointer">Forgot Password?</p>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        $(document).ready(function(){
+            $("form").submit(function(e){
+                e.preventDefault();
+                form = $(this).serialize();
+                form += "&submit=" + $("form button[name=submit]").prop("value");
+
+                //submit the form
+                $.ajax({
+                    url: "submit.php",
+                    data: form,
+                    type: "POST",
+                    dataType: "JSON",
+                    beforeSend: function(){
+                        //disable all input fields
+                        $("form input, form select").prop("disabled", true);
+                        $("form button[name=submit]").html("Logging In...").prop("disabled", true);
+                    },
+                    success: function(data) {
+                        data = JSON.parse(JSON.stringify(data));
+                        message = ""; addClass = ""; time = 0
+                        setTimeout(function(){
+                            if(!data["error"]){
+                                message = "Login was done successfully";
+                            }else{
+                                message = data["message"];
+                                addClass = "bg-red-500 text-white";
+
+                                //enable inputs
+                                $("form input, form select").prop("disabled", false);
+                                $("form button[name=submit]").html("Login").prop("disabled", false);
+                            }
+
+                            //parse message into message box
+                            $("#message-box").addClass(addClass);
+                            $("#message-box").removeClass("hidden");
+                            $("#message-box span").html(message);
+
+                            if(!data["error"])
+                                time = 2500
+                            else
+                                time = 3500
+
+                            setTimeout(function(){
+                                //remove message in message box
+                                $("#message-box").addClass("hidden");
+                                $("#message-box").removeClass(addClass);
+                                $("#message-box span").html(message);
+
+                                //go to dashboard
+                                if(!data["error"])
+                                    location.href = "dashboard.php";
+                            }, time)
+                        }, 1500)
+                    },
+                    error: function(message){
+                        alert(JSON.stringify(message));
+
+                        //enable inputs
+                        $("form input, form select").prop("disabled", false);
+                        $("form button[name=submit]").html("Login").prop("disabled", false);
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
