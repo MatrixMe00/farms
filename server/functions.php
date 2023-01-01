@@ -144,7 +144,7 @@
     function countAnimalType($animal_type, $table="weight_table"){
         global $connect;
 
-        $sql = "SELECT COUNT(animal_type) as total FROM $table WHERE animal_type = '$animal_type'";
+        $sql = "SELECT DISTINCT COUNT(animal_id) as total FROM $table WHERE animal_type = '$animal_type'";
         $query = $connect->query($sql);
 
         return intval($query->fetch_assoc()["total"]);
@@ -197,6 +197,23 @@
             $div = 1;
         }
 
-        return (($final - $init) / $div) * 100 . "%";
+        return number_format((($final - $init) / $div) * 100, 2) . "%";
+    }
+
+    /**
+     * This function would be used to determine the average weight of inputs
+     * @param string $animal_type This is the type of animal to be checked on
+     * @param string $table This is the table to be used to determine the average weight from
+     * @param string $avg_column This is the column to be used to calculate the average weight
+     * 
+     * @return float returns the average weight
+     */
+    function getAverageWeight($animal_type, $table = "weight_table", $avg_column="animal_weight") {
+        global $connect;
+
+        $sql = "SELECT AVG($avg_column) as average FROM $table WHERE animal_type ='$animal_type'";
+        $query = $connect->query($sql);
+
+        return number_format($query->fetch_assoc()["average"], 2);
     }
 ?>

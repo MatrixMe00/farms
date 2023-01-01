@@ -54,7 +54,7 @@
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Cattle Weight</span>
-                        <span class="text-3xl mt-2">31.25kg</span>
+                        <span class="text-3xl mt-2"><?= getAverageWeight("cow") ?>kg</span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Cattle Performance</span>
@@ -73,15 +73,15 @@
                 <div class="grid lg:grid-cols-2 gap-x-2 gap-y-3 xl:grid-cols-3">
                     <div class="p-4 border rounded <?php if($superadmin): ?>rounded-tl-none<?php endif; ?> flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Total Sheep</span>
-                        <span class="text-3xl mt-2">20</span>
+                        <span class="text-3xl mt-2"><?= countAnimalType("sheep") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Population rise</span>
-                        <span class="text-3xl mt-2">15.5%</span>
+                        <span class="text-3xl mt-2"><?= populationRise("sheep") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Sheep Weight</span>
-                        <span class="text-3xl mt-2">31.25kg</span>
+                        <span class="text-3xl mt-2"><?= getAverageWeight("sheep") ?>kg</span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Sheep Performance</span>
@@ -100,15 +100,15 @@
                 <div class="grid lg:grid-cols-2 gap-x-2 gap-y-3 xl:grid-cols-3">
                     <div class="p-4 border rounded <?php if($superadmin): ?>rounded-tl-none<?php endif; ?> flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Total Pig</span>
-                        <span class="text-3xl mt-2">20</span>
+                        <span class="text-3xl mt-2"><?= countAnimalType("pig") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Population rise</span>
-                        <span class="text-3xl mt-2">15.5%</span>
+                        <span class="text-3xl mt-2"><?= populationRise("pig") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Pig Weight</span>
-                        <span class="text-3xl mt-2">31.25kg</span>
+                        <span class="text-3xl mt-2"><?= getAverageWeight("pig") ?>kg</span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Pig Performance</span>
@@ -127,15 +127,15 @@
                 <div class="grid lg:grid-cols-2 gap-x-2 gap-y-3 xl:grid-cols-3 <?php if($user_data["department_id"] == 2){echo "mt-4";} ?>">
                     <div class="p-4 border rounded <?php if($superadmin): ?>rounded-tl-none<?php endif; ?> flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Total Goat</span>
-                        <span class="text-3xl mt-2">20</span>
+                        <span class="text-3xl mt-2"><?= countAnimalType("goat") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Population rise</span>
-                        <span class="text-3xl mt-2">15.5%</span>
+                        <span class="text-3xl mt-2"><?= populationRise("goat") ?></span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Goat Weight</span>
-                        <span class="text-3xl mt-2">31.25kg</span>
+                        <span class="text-3xl mt-2"><?= getAverageWeight("goat") ?>kg</span>
                     </div>
                     <div class="py-2 px-4 border rounded flex justify-between items-between min-h-[10vh] bg-neutral-50">
                         <span class="text-sm">Average Goat Performance</span>
