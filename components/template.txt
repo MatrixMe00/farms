@@ -1,0 +1,20 @@
+<?php 
+    $animal = getDepartment($user_data["department_id"], false, "animal");
+    if(is_array($animal)){
+        $animal = $animal[0]["animal"];
+
+        if(getActivePageName() == "performance"):
+?>
+        
+<?php
+        elseif(getActivePageName() == "records"):
+?>
+        
+<?php
+        elseif(getActivePageName() == "weight"):
+?>
+        
+<?php
+        endif;
+    }
+?>
